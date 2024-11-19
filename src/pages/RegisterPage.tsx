@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import User from '../config/types'
+import axios, { isAxiosError } from "axios"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 
 //Este está validado con validación manual, usando useState y onSubmit que va en el form// 
@@ -32,23 +35,39 @@ function RegisterPage() {
         setRegisterValues({...registerValues, [name]: value})
         setErrors({...errors, ...checkErrors})
     }
+    const myDataBase = axios.create({
+        baseURL: 'http://localhost:3000'
+    })
+
+    async function addUser(registerValues: User) {
+        try{
+            const response = await myDataBase.post('/register', registerValues)
+            console.log(response)
+            toast.success("You have registered successfully! Now, enjoy MyBookShelf!🙂")
+        } catch(error){
+            if(isAxiosError(error)){
+                console.log(error.response?.data)
+            } else {
+                console.log(error)
+            }
+        }
+        
+    }
+
+    const navigate = useNavigate()
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log(registerValues)
+        addUser(registerValues).then(() => {
+            navigate('/')
+        }).catch((error)=> {
+            console.log(error)
+        }) 
     }
 
-    const myDataBase = 'http://localhost:3000'
-    const [users, setBook] = useState<User>()
-    
-        useEffect(() => {
-            fetch(`${myDataBase}/register`)
-                .then(resp => resp.json())
-                .then(users => {
-                    console.log("Books fetched:", books);
-                    setBook(books)})
-                .catch(error => console.log(error))
-        }, [])
+
+
 
     return (
         <div className="flex flex-col md:flex-row items-center gap-8 w-full min-h-[calc(70vh-48px)] 2xl:min-h-[calc(90vh-48px)] max-h-screen space-x-24 2xl:space-x-52">
