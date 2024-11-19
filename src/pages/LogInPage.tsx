@@ -1,6 +1,9 @@
+import { toast } from "react-toastify"
 import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import { useForm } from 'react-hook-form'
+import axios, { isAxiosError } from "axios"
+import { useNavigate } from "react-router-dom"
 
 type LogInValues = {
     email: string, 
@@ -12,8 +15,34 @@ function LogInPage() {
     const {register, handleSubmit, formState} = useForm<LogInValues>()
     const {errors } = formState
 
+    const myDataBase = axios.create({
+        baseURL: 'http://localhost:3000'
+    })
+
+    async function logIn(data: LogInValues){
+        try{
+            const resp = await myDataBase.post('/login', data)
+            console.log(resp);
+            toast.success('You have successfully logged in!')
+        }catch(error){
+            if(isAxiosError(error)){
+                console.log(error.response?.data)
+                toast.error("You cannot log in. Please try again!")
+            } else {
+                console.log(error)
+            }
+        }
+    }
+
+    const navigate = useNavigate()
+
     function onSubmit (data: LogInValues) {
         console.log(data);
+        logIn(data).then(() => {
+            navigate('/')
+        }).catch((error) => {
+            console.log(error)
+        })
         
     }
     

@@ -28,9 +28,15 @@ function RegisterPage() {
         if(name === 'username' && value.length < 4 ) checkErrors.username = 'Username has to be longer than 3 characters'
         if(name === 'email' && !emailRegex.test(value)) checkErrors.email = 'Email not valid'
         if(name === 'photo' && !value) checkErrors.photo = 'URL needed'
-        if(name === 'password' && !value) checkErrors.password = 'Password required'
-        if(name === 'password' && !passwordRegex.test(value)) checkErrors.password = 'Password requires 6-13 characters, one lower case, one upper case and one digit'
-        if(name === 'repeatPassword' && value != registerValues.password) checkErrors.repeatPassword = 'Passwords are not the same'
+        if(name === 'password' && !value) {checkErrors.password = 'Password required';}
+            else if(name === 'password' && !passwordRegex.test(value)){checkErrors.password = 'Password requires 6-13 characters, one lower case, one upper case and one digit'}
+        if(name === 'repeatPassword') {
+            if(!value) {
+                checkErrors.repeatPassword = 'Repeat password required'
+            } else if(value !== registerValues.password) {
+                checkErrors.repeatPassword = 'Passwords are not the same'
+            }
+        } 
 
         setRegisterValues({...registerValues, [name]: value})
         setErrors({...errors, ...checkErrors})
@@ -47,6 +53,7 @@ function RegisterPage() {
         } catch(error){
             if(isAxiosError(error)){
                 console.log(error.response?.data)
+                toast.error("We could not register you 😔")
             } else {
                 console.log(error)
             }
