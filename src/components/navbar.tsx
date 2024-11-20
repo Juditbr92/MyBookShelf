@@ -1,4 +1,6 @@
 import {NavLink} from 'react-router-dom'
+import Avatar from './Avatar';
+import { UserGreeting } from '../config/types';
 
 type MenuProps = {
     isSidebarOpen?: boolean;
@@ -14,8 +16,8 @@ function Navbar (props: MenuProps) {
     const classes = `${commonClasses} ${isSidebarOpen ? sidebarClasses : headerClasses}`
 
     const user = {
-        
     }
+
 
     return (
         <nav className = {classes}>
