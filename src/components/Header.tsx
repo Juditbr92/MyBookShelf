@@ -17,13 +17,13 @@ function Header () {
 
     return (
         <header className="flex flex-nowrap bg-custom-bg justify-between">
-            <Logo/>           
-            <Navbar/>  
-            <Avatar user= {loggedUser}/>
+            <Logo/>         
+            <Navbar/> 
             <div className="flex justify-end">
                 <button className='flex md:hidden p-4 text-2xl text-white self-center' onClick={() => setSidebar(!isSidebarOpen)}><RxHamburgerMenu/> </button>
                 {isSidebarOpen && <Sidebar isSidebarOpen= {isSidebarOpen }/>}
             </div>
+            
         </header>
         
     )

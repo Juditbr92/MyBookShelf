@@ -9,11 +9,16 @@ type Book = {
 
 type User = {
   user_id: number;
-  userName: string;
+  username: string;
   email: string;
   photo: string;
   password: string;
   repeatPassword: string;
 };
 
-export type { Book, User };
+type UserGreeting = {
+  username: string;
+  photo: string;
+};
+
+export type { Book, User, UserGreeting };

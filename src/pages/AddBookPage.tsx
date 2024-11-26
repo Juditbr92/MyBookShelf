@@ -2,6 +2,9 @@ import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import { useForm } from 'react-hook-form'
 import StarsRating from '../components/ui/StarsRating'
+import axios from "axios"
+import { toast } from "react-toastify"
+
 
 
 type FormValues = {
@@ -17,8 +20,34 @@ function AddBookPage() {
     const {register, handleSubmit, formState} = useForm<FormValues>()
     const { errors, isValid } = formState
 
-    function onSubmit (data: FormValues) {
-        console.log(data);
+    const myDataBase = axios.create({
+        baseURL: 'http://localhost:3000'
+    })
+
+    async function addBook(book: FormValues){
+        try{
+            const res = await myDataBase.post('/addBook', book)
+            console.log(res)
+            toast.success('Book added successfully to your bookshelf!')
+        }
+        catch(error){
+            console.log(error)
+            toast.error('Book could not be added 😕')
+        }
+    }
+
+    function onSubmit (book: FormValues) {
+        console.log(book);
+        addBook(book).then(() => {
+            book = {
+                title: '',
+                author: '', 
+                type: '', 
+                photo: '', 
+                notes: ''
+            }
+        })
+
         
     }
 
