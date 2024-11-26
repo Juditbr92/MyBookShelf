@@ -26,10 +26,10 @@ function App() {
           <Route path='/' element={<HomePage />}/>
 
 {/* Esto tiene que borrarse y quedar lo de las Private Routes, pero como no hay nadie logueado no funciona */}
-            {/* <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/profile' element={<ProfilePage />} />
             <Route path='/books' element={<BookPage/>} />
             <Route path='/addBook' element={<AddBookPage />} />
-            <Route path='/editBook' element = {<EditBookPage />} /> */}
+            <Route path='/editBook' element = {<EditBookPage />} />
 
 
           <Route element={<PublicRoutes />}>
@@ -38,12 +38,12 @@ function App() {
             
           </Route>
           
-          <Route element={<PrivateRoutes />}>
+          {/* <Route element={<PrivateRoutes />}>
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/books' element={<BookPage/>} />
             <Route path='/addBook' element={<AddBookPage />} />
             <Route path='/editBook' element = {<EditBookPage />} />
-          </Route>
+          </Route> */}
 
         </Routes>
         

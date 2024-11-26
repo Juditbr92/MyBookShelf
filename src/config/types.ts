@@ -18,7 +18,7 @@ type User = {
 
 type UserGreeting = {
   username: string;
-  photo: string;
+  photo?: string;
 };
 
 export type { Book, User, UserGreeting };

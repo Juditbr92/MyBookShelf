@@ -2,7 +2,7 @@ import { Outlet, Navigate } from 'react-router-dom'
 
 function PublicRoutes() {
 
-    const user = null
+    const user = {}
 
     return (
         <div>

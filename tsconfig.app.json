@@ -19,7 +19,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*", "src/components/Avatar.tsx"],
+  "include": ["src/**/*", "src/components/UserAvatar.tsx"],
   "exclude": [
     "node_modules",
     "dist"
