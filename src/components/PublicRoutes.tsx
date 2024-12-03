@@ -1,8 +1,11 @@
+
 import { Outlet, Navigate } from 'react-router-dom'
+
 
 function PublicRoutes() {
 
-    const user = {}
+    const user = null
+
 
     return (
         <div>

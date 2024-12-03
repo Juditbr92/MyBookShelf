@@ -10,15 +10,12 @@ function Navbar (props: MenuProps) {
 
     const {isSidebarOpen} = props;
 
-    const commonClasses = "gap-6 text-white w-full justify-end items-center mr-8 2xl:gap-12 2xl:text-xl 2xl:mr-12"
+    const commonClasses = "gap-10 text-white w-full justify-end items-center mr-8 2xl:gap-12 2xl:text-xl 2xl:mr-12"
     const sidebarClasses = "flex flex-col"
     const headerClasses = "hidden md:flex "
     const classes = `${commonClasses} ${isSidebarOpen ? sidebarClasses : headerClasses}`
 
-    const user = {
-        username: "Judit",
-        photo: "https://img.freepik.com/vector-gratis/ilustracion-plana-celebracion-dia-mundial-libro_23-2150189972.jpg"
-        }
+    const user = null
 
 
 
@@ -37,3 +34,5 @@ function Navbar (props: MenuProps) {
 }
 
 export default Navbar
+
+
