@@ -1,8 +1,11 @@
+
 import { Navigate } from 'react-router-dom'
+
 
 function PrivateRoutes() {
 
-    const user = {}
+    const user = null
+
 
     return (
         <div>
