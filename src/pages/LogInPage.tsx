@@ -3,7 +3,9 @@ import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import { useForm } from 'react-hook-form'
 import axios, { isAxiosError } from "axios"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import { UserContext } from "../context/UserProvider"
 
 type LogInValues = {
     email: string, 
@@ -14,17 +16,30 @@ function LogInPage() {
 
     const {register, handleSubmit, formState} = useForm<LogInValues>()
     const {errors } = formState
-
+    const navigate = useNavigate()
+    const { logIn } = useContext(UserContext) // Esto es del userProvider
     const myDataBase = axios.create({
         baseURL: 'http://localhost:3000'
     })
 
-    async function logIn(data: LogInValues){
+    
+
+        // Esta es la función para manejar el envío del formulario
+    const onSubmit = async(data: LogInValues) => {
         try{
-            const resp = await myDataBase.post('/login', data)
+            const resp = await myDataBase.post('/login', data) // Aquí POST a la API para autenticación
             console.log(resp);
-            toast.success('You have successfully logged in!')
-        }catch(error){
+            const user = resp.data // Este user me lo devuelve la BBDD
+
+            // Si hay usuario, lo guardamos en el contexto
+            if(logIn){
+                logIn(user)
+            }
+
+            toast.success('You have successfully logged in 😉!')
+            navigate('/')
+        }
+        catch(error){
             if(isAxiosError(error)){
                 console.log(error.response?.data)
                 toast.error("You cannot log in. Please try again!")
@@ -34,17 +49,6 @@ function LogInPage() {
         }
     }
 
-    const navigate = useNavigate()
-
-    function onSubmit (data: LogInValues) {
-        console.log(data);
-        logIn(data).then(() => {
-            navigate('/')
-        }).catch((error) => {
-            console.log(error)
-        })
-        
-    }
     
     return (
         <div className="flex flex-col items-center mt-2 w-full">

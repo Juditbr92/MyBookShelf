@@ -20,6 +20,8 @@ function UserProvider(props: UserProviderProps) {
     const { children } = props
 
     const [user, setUser] = useState<User | null>(() => {
+
+        // Aqui hay que meter el user con el que hacemos LogIn
         //Aquí metemos todo el código de lo que queremos que salga según iniciamos la app
         const userLocalStorage = localStorage.getItem('user')
 
