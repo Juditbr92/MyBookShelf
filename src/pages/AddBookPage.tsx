@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import StarsRating from '../components/ui/StarsRating'
 import axios from "axios"
 import { toast } from "react-toastify"
+import { useState } from "react"
 
 
 
@@ -12,23 +13,28 @@ type FormValues = {
     author: string, 
     type: string, 
     photo?: string, 
-    notes?: string
+    notes?: string,
+    rating: number
 }
 
 function AddBookPage() {
 
-    const {register, handleSubmit, formState} = useForm<FormValues>()
+    const {register, handleSubmit, formState, reset} = useForm<FormValues>()
     const { errors, isValid } = formState
+    const [rating, setRating] = useState(0);
 
     const myDataBase = axios.create({
         baseURL: 'http://localhost:3000'
     })
 
-    async function addBook(book: FormValues){
+    // tenemos que coger el user Id del local storage:
+    async function addBook(book: FormValues & {user_id : string}){
         try{
             const res = await myDataBase.post('/addBook', book)
             console.log(res)
             toast.success('Book added successfully to your bookshelf!')
+            reset() // resetea el formulario
+            setRating(0) //resetea el rating a 0
         }
         catch(error){
             console.log(error)
@@ -36,19 +42,15 @@ function AddBookPage() {
         }
     }
 
+    // enviamos los datos del libro y del rating:
     function onSubmit (book: FormValues) {
+        const user_id = localStorage.getItem('user_id')
+        if(!user_id){
+            toast.error('User not logged in!')
+            return
+        }
         console.log(book);
-        addBook(book).then(() => {
-            book = {
-                title: '',
-                author: '', 
-                type: '', 
-                photo: '', 
-                notes: ''
-            }
-        })
-
-        
+        addBook({...book, rating, user_id})
     }
 
     return (
@@ -113,8 +115,8 @@ function AddBookPage() {
                         placeholder= "Photo URL"
                         {...register('photo')}
                         />
-
-                        <label className='flex items-center gap-12 from-neutral-500'> Rating: <StarsRating/></label>
+                        {/* Aqui pasamos el setRating */}
+                        <label className='flex items-center gap-12 from-neutral-500'> Rating: <StarsRating onRatingChange={setRating}/></label> 
                         
                         <Input 
                         className="h-10 lg:h-10 bg-slate-200 border-2 border-custom-bg rounded p-2 2xl:mb-3 2xl:mt-2"

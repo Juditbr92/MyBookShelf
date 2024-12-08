@@ -32,6 +32,7 @@ function UserProvider(props: UserProviderProps) {
     function logIn (user:User) {
         setUser(user)
         localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('user_id', JSON.stringify(user.user_id));
     }
 
     function logOut (){
