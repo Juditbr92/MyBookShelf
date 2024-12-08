@@ -3,7 +3,7 @@ import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import { useForm } from 'react-hook-form'
 import axios, { isAxiosError } from "axios"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "../context/UserProvider"
 
@@ -29,7 +29,7 @@ function LogInPage() {
         try{
             const resp = await myDataBase.post('/login', data) // Aquí POST a la API para autenticación
             console.log(resp);
-            const user = resp.data // Este user me lo devuelve la BBDD
+            const user = resp.data.user // Este user me lo devuelve la BBDD
 
             // Si hay usuario, lo guardamos en el contexto
             if(logIn){
