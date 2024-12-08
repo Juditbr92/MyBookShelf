@@ -2,12 +2,18 @@ import React, { useState } from 'react'
 import { FaStar } from "react-icons/fa6"
 
 
-function StarsRating() {
+type StarsRatingProps = {
+    onRatingChange: (rating: number) => void;
+};
+
+
+function StarsRating( {onRatingChange}: StarsRatingProps) {
 
     const [rating, setRating] = useState(0)
 
-    const handleRating = (rate) => {
+    const handleRating = (rate: number) => {
         setRating(rate)
+        onRatingChange(rate) // -> esto notifica sobre el cambio en el rating
     }
 
     return (

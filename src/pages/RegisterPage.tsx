@@ -67,13 +67,11 @@ function RegisterPage() {
         event.preventDefault();
         console.log(registerValues)
         addUser(registerValues).then(() => {
-            navigate('/')
+            navigate('/login')
         }).catch((error)=> {
             console.log(error)
         }) 
     }
-
-
 
 
     return (

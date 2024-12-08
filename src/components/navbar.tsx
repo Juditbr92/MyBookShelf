@@ -1,5 +1,7 @@
 import {NavLink} from 'react-router-dom'
 import Avatar from './Avatar.tsx';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserProvider.tsx';
 
 
 type MenuProps = {
@@ -15,7 +17,7 @@ function Navbar (props: MenuProps) {
     const headerClasses = "hidden md:flex "
     const classes = `${commonClasses} ${isSidebarOpen ? sidebarClasses : headerClasses}`
 
-    const user = null
+    const {user} = useContext(UserContext)
 
 
 
