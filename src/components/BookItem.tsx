@@ -31,7 +31,7 @@ function BookItem (props: BookItemProps) {
                     <span className="bg-custom-bg text-sm py-1 px-4 rounded-full text-white">{book.type}</span>
                 </div> 
                 <div className="flex items-center">
-                    <span className="m-1"><StarsRating></StarsRating></span>
+                    <span className="m-1"><StarsRating onRatingChange={() => {}} rating={book.rating}></StarsRating></span>
                     <button className="ml-auto text-xl mr-2"  onClick={handleEditBook}> <AiTwotoneEdit /></button>
                     <button className="text-xl"><AiOutlineDelete className="text-red-700"  onClick={handleDeleteBook}/></button>
                 </div>
