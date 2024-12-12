@@ -5,6 +5,7 @@ import StarsRating from '../components/ui/StarsRating'
 import axios from "axios"
 import { toast } from "react-toastify"
 import { useState } from "react"
+import { Navigate, NavLink, useNavigate } from "react-router-dom"
 
 
 
@@ -42,6 +43,8 @@ function AddBookPage() {
         }
     }
 
+    const navigate = useNavigate()
+
     // enviamos los datos del libro y del rating:
     function onSubmit (book: FormValues) {
         const user_id = localStorage.getItem('user_id')
@@ -50,8 +53,12 @@ function AddBookPage() {
             return
         }
         console.log(book);
-        addBook({...book, rating, user_id})
+        addBook({...book, rating, user_id}).then(() => { //hacemos una función asíncrona para redirigir a books una vez que ya se ha hecho la peticion de añadir el libro
+            navigate('/books')
+        })
+        
     }
+
 
     return (
         <div className="flex mt-4 flex-col items-center min-w-full min-h-auto">
