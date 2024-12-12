@@ -3,6 +3,7 @@ import BookList from "../components/BookList"
 import { Book } from "../config/types"
 import { toast } from "react-toastify"
 import { UserContext } from "../context/UserProvider"
+import { NavLink } from "react-router-dom"
 
 
 
@@ -42,9 +43,14 @@ function BookPage() {
     return (
         <div className="ml-4 mt-4">
             <h1 className="flex border-b-2 border-custom-bg mb-2 justify-center mx-4 text-4xl text-emerald-700 font-bold font-sans flex-wrap">My books</h1>
+            <div className="flex mt-8 justify-center">
         {/* Si hay books, entonces muestra el bookList y si no el parrafo */}
             {books.length > 0? (
-                <BookList books={books}/>) : (<p>There are no books to show yet. Start adding your books! </p>)}  
+                <BookList books={books}/>) : 
+                (<p className="text-2xl mr-2 ml-8"> There are no books to show yet. Start adding your books {''} 
+                <NavLink className="text-2xl hover:text-emerald-700 underline font-bold" to="/addBook"> here! </NavLink></p> )}  
+            </div>
+            
         </div>
     )
 }

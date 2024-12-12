@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaStar } from "react-icons/fa6"
 
 
@@ -10,11 +10,17 @@ type StarsRatingProps = {
 
 function StarsRating( {rating= 0, onRatingChange}: StarsRatingProps) {
 
-    const [localRating, setlocalRating] = useState(rating)
+    const [localRating, setLocalRating] = useState(rating)
+
+    // Esto es para que al hacer click en añadir libro se reseten las estrellas a 0
+    useEffect(() => {
+        setLocalRating(rating);
+    }, [rating]);
+
 
     const handleRating = (rate: number) => {
         if(onRatingChange){
-            setlocalRating(rate);
+            setLocalRating(rate);
             onRatingChange(rate)
         }
     }
@@ -26,7 +32,7 @@ function StarsRating( {rating= 0, onRatingChange}: StarsRatingProps) {
                     key= {star}
                     type= "button"
                     onClick={() => handleRating(star)}
-                    className={`justify-center text-xl md:text-2xl ${star <= rating ? 'text-yellow-400' : 'text-gray-400'}`}>
+                    className={`justify-center text-xl md:text-2xl ${star <= localRating ? 'text-yellow-400' : 'text-gray-400'}`}>
                 <FaStar  /></button>
             )}
             
