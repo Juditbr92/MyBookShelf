@@ -1,14 +1,18 @@
+import { useContext } from 'react'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useForm } from 'react-hook-form'
+import { UserContext } from '../context/UserProvider'
 
 
 type FormValues = {
     username: string,
-    email: string, 
+    password: string, 
     photo: string
 }
 function ProfilePage() {
+
+    const { user } = useContext(UserContext)
 
     const { register, handleSubmit, formState} = useForm<FormValues>();
     const { errors } = formState
@@ -25,9 +29,10 @@ function ProfilePage() {
 
             <div className='flex gap-64 items-center'>
 
-                <div className='sm: hidden md:flex'>
-                    {/* Aquí poner que me venga la imagen perfil*/}
-                    <img src="img\editBook.jpg" alt="Photo of your avatar" className='w-[200px] h-[200px] rounded-full'/>
+                <div className='xs:hidden sm: hidden md:flex flex-col items-center'>
+                    {/* Aquí ponemos la imagen que me viene del perfil*/}
+                    <img src={user?.photo} alt="Photo of your avatar" className='w-[280px] h-[250px] rounded-full'/>
+                    <span className='mt-4 text-2xl'>{user?.username}</span>
                 </div>
 
                 <div className='h-full mt-2'>
@@ -46,23 +51,23 @@ function ProfilePage() {
                                 }
                             })}
                             />
-                            {errors.username && <span className="text-red-500 text-xs" >{errors.username.message}</span>}
+                            {errors.username && <span className="block text-red-500 text-xs h-4" >{errors.username.message}</span>}
                         </div>
                         <div>
                             <Input 
-                            className="h-8 lg:h-10 bg-slate-200 border-2 border-custom-bg rounded p-2 2xl:mb-3"
-                                label="Email:" 
-                                type="email" 
-                                placeholder="Email"
-                                {...register('email', {
-                                    required: "Email required",
+                            className="h-8 text-clip lg:h-10 bg-slate-200 border-2 border-custom-bg rounded p-2 2xl:mb-3"
+                                label="Password:" 
+                                type="password" 
+                                placeholder="Password"
+                                {...register('password', {
+                                    required: "Password required",
                                     pattern: {
-                                    value: /^.+@[^.].*\.[a-z]{2,}$/, 
-                                    message: "Email not valid"
+                                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{4,8}$/, 
+                                    message: "Password requires 6-13 characters, one lower case, one upper case and one digit"
                                 }
                                 })}
                             />  
-                            {errors.email && <span className="text-red-500 text-xs" >{errors.email.message}</span>}
+                            {errors.password && <span className="block text-red-500 text-xs h-4" >{errors.password.message}</span>}
                         </div>
 
                         <div>
@@ -75,7 +80,7 @@ function ProfilePage() {
                                 required: "Photo required"
                             })}
                             />
-                            {errors.photo && <span className="text-red-500 text-xs" >{errors.photo.message}</span>}
+                            {errors.photo && <span className="block text-red-500 text-xs h-4" >{errors.photo.message}</span>}
                         </div>
                         
                     <Button>Update Profile</Button>
