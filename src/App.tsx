@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage';
 import PrivateRoutes from './components/PrivateRoutes';
 import EditBookPage from './pages/EditBookPage'
 import PublicRoutes from './components/PublicRoutes'
+import Error404Page from './pages/Error404Page';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import UserProvider from './context/UserProvider';
@@ -48,6 +49,8 @@ function App() {
               <Route path='/editBook' element = {<EditBookPage />} />
             </Route>
             
+            {/* Aqui la ruta para el error 404 */}
+            <Route path='*' element={<Error404Page />} />
 
           </Routes>
             
