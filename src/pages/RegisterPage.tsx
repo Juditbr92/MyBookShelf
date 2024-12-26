@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
-import User from '../config/types'
+import {User} from '../config/types'
 import axios, { isAxiosError } from "axios"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { UserContext } from "../context/UserProvider"
+
 
 
 //Este está validado con validación manual, usando useState y onSubmit que va en el form// 
@@ -45,11 +47,24 @@ function RegisterPage() {
         baseURL: 'http://localhost:3000'
     })
 
+    const { logIn } = useContext(UserContext) // Esto es del userProvider
+    const navigate = useNavigate()
+
     async function addUser(registerValues: User) {
         try{
             const response = await myDataBase.post('/register', registerValues)
+
+            // Guardar token en el localStorage:
+            localStorage.setItem('token', response.data.token)
+
             console.log(response)
+            // Actualizamos el userContext con la nueva información
+            if(logIn){
+                logIn(response.data.user)
+            }
             toast.success("You have registered successfully! Now, enjoy MyBookShelf!🙂")
+            // redirigir a home
+            navigate('/')
         } catch(error){
             if(isAxiosError(error)){
                 console.log(error.response?.data)
@@ -61,14 +76,12 @@ function RegisterPage() {
         
     }
 
-    const navigate = useNavigate()
+    
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log(registerValues)
-        addUser(registerValues).then(() => {
-            navigate('/login')
-        }).catch((error)=> {
+        addUser(registerValues).catch((error)=> {
             console.log(error)
         }) 
     }

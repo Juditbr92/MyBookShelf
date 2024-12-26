@@ -9,7 +9,7 @@ type Book = {
 };
 
 type User = {
-  user_id: number;
+  user_id?: number;
   username: string;
   email: string;
   photo: string;
