@@ -1,10 +1,10 @@
 import React, { createContext, ReactNode, useState } from 'react'
-import { User } from '../config/types';
+import { UpdateUser, User } from '../config/types';
 
 
 type UserContextType = {
         user: User | null,
-        logIn?: (user: User) => void, 
+        logIn?: (user: User | UpdateUser) => void, 
         logOut?: () => void
 }
 

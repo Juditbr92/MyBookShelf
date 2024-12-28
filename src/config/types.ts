@@ -17,9 +17,16 @@ type User = {
   repeatPassword: string;
 };
 
+type UpdateUser = {
+  user_id?: number;
+  username: string;
+  photo: string;
+  password: string;
+};
+
 type UserGreeting = {
   username: string;
   photo?: string;
 };
 
-export type { Book, User, UserGreeting };
+export type { Book, User, UserGreeting, UpdateUser };

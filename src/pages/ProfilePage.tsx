@@ -3,22 +3,49 @@ import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useForm } from 'react-hook-form'
 import { UserContext } from '../context/UserProvider'
+import { toast } from 'react-toastify'
+import { UpdateUser } from '../config/types'
+
 
 
 type FormValues = {
     username: string,
     password: string, 
-    photo: string
+    photo: string, 
+    user_id?: number
 }
 function ProfilePage() {
 
-    const { user } = useContext(UserContext)
+    const { user, logIn } = useContext(UserContext)
 
-    const { register, handleSubmit, formState} = useForm<FormValues>();
+    const { register, handleSubmit, formState, reset } = useForm<FormValues>();
     const { errors } = formState
+    
+    async function onSubmit (data: FormValues) {
+        const updatedUser: UpdateUser = {...data}
+        if(user) updatedUser.user_id = user.user_id
 
-    function onSubmit (data: FormValues) {
-        console.log(data)
+        try{
+            const resp = await fetch(`http://localhost:3000/profile/${user?.user_id}`, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {'Content-Type' : 'application/json'}
+            })
+            console.log(`Sending request to: http://localhost:3000/profile/${user?.user_id}`)
+
+            const json = await resp.json()
+            if(json.code === 200){
+                toast.success(json.message)
+                if(updatedUser !== undefined){
+                    logIn(updatedUser)
+                }
+                reset() // resetea el formulario, hay que añadirlo en el useForm
+            }else {
+                toast.error(json.message || 'An error occurred');
+            }
+        }catch(error){
+            console.log(error)
+        }
     }
 
     return (
