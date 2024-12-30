@@ -2,21 +2,46 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai"; 
 import { Book } from "../config/types"
 import StarsRating from '../components/ui/StarsRating'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type BookItemProps = {
-    book: Book
+    book: Book;
+    getBooksUser: () => void
 }
 
 function BookItem (props: BookItemProps) {
 
-    const { book } = props; 
+    const { book, getBooksUser } = props; 
+    const navigate = useNavigate()
 
-    function handleEditBook(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        console.log('Libro editado correctamente')
+    function handleEditBook() {
+        navigate("/editBook")
     }
 
-    function handleDeleteBook(event: React.MouseEvent<SVGElement, MouseEvent>) {
-        console.log('Libro borrado correctamente')
+    async function deleteBook() {
+        console.log(book.book_id)
+        try{
+            const resp = await fetch(`http://localhost:3000/books?book_id=${book.book_id}`,
+                {method: 'DELETE'}
+            )
+            const json = await resp.json()
+            console.log(json)
+            // Aquí llamamos a una función para que me vuelva a llamar a la funcion getBooksUser (de bookPage) para que me setee los libros de nuevo
+            
+            if(json.code === 200){
+                toast.success("This book has been deleted")
+                getBooksUser();
+            }
+                
+        
+        }
+        catch(error){
+            if(error instanceof Error){
+                toast.error(error.message)
+                console.log(error)
+            }
+        }
     }
 
     return (
@@ -33,7 +58,7 @@ function BookItem (props: BookItemProps) {
                 <div className="flex items-center">
                     <span className="m-1"><StarsRating onRatingChange={() => {}} rating={book.rating}></StarsRating></span>
                     <button className="ml-auto text-xl mr-2"  onClick={handleEditBook}> <AiTwotoneEdit /></button>
-                    <button className="text-xl"><AiOutlineDelete className="text-red-700"  onClick={handleDeleteBook}/></button>
+                    <button className="text-xl"><AiOutlineDelete className="text-red-700 cursor-pointer hover:scale-110"  onClick={deleteBook}/></button>
                 </div>
                 <button className="p-2 rounded hover:border-2 hover:bg-custom-bg hover:text-white ">Mis notas</button>
             </div>

@@ -2,12 +2,13 @@ import { Book } from "../config/types"
 import BookItem from "./BookItem"
 
 type BookListProps = {
-    books: Book[]
+    books: Book[];
+    getBooksUser: () => void
 }
 
 function BookList(props: BookListProps){
         
-        const {books} = props
+        const {books, getBooksUser} = props
         console.log(books)
 
         return(
@@ -15,7 +16,7 @@ function BookList(props: BookListProps){
             {/* Aquí hacemos un map de Book Item para que me saque todos los libros del array */}
             {
                 books.map(book => {
-                    return <BookItem key={book.id_book} book= {book} />
+                    return <BookItem key={book.book_id} book= {book} getBooksUser= {getBooksUser} />
                 })
             }
         </div>

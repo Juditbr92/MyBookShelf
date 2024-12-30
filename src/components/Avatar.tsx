@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import  { useContext, useState } from 'react'
 import { UserContext } from '../context/UserProvider'
 import { IoIosArrowDropdown } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
@@ -17,7 +17,7 @@ function Avatar() {
 
     return (
         <div className='flex items-center h-12 w-12 mr-12 gap-12 2xl:mr-16 2xl:gap-18'>
-            {user && <img src={user.photo} alt="Avatar" className='rounded-full'/>}
+            {user && <img src={user.photo || '/img/person-310799_1280.webp'} alt="Avatar" className='rounded-full'/>}
             <button 
             onClick={toggleDropdown} 
             type="button" 
