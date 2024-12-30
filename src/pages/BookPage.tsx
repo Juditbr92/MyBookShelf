@@ -46,7 +46,7 @@ function BookPage() {
             <div className="flex mt-8 justify-center">
         {/* Si hay books, entonces muestra el bookList y si no el parrafo */}
             {books.length > 0? (
-                <BookList books={books}/>) : 
+                <BookList books={books} getBooksUser= {getBooksUser }/>) : 
                 (<p className="text-2xl mr-2 ml-8"> There are no books to show yet. Start adding your books {''} 
                 <NavLink className="text-2xl hover:text-emerald-700 underline font-bold" to="/addBook"> here! </NavLink></p> )}  
             </div>

@@ -58,7 +58,10 @@ function ProfilePage() {
 
                 <div className='xs:hidden sm: hidden md:flex flex-col items-center'>
                     {/* Aquí ponemos la imagen que me viene del perfil*/}
-                    <img src={user?.photo} alt="Photo of your avatar" className='w-[280px] h-[250px] rounded-full'/>
+                    <div className='size-64 rounded-full overflow-hidden'>
+                        <img src={user?.photo} alt="Photo of your avatar"/>
+                    </div>
+                    
                     <span className='mt-4 text-2xl'>{user?.username}</span>
                 </div>
 

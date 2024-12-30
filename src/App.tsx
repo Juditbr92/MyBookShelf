@@ -45,6 +45,7 @@ function App() {
             <Route element={<PrivateRoutes />}>
               <Route path='/profile' element={<ProfilePage />} />
               <Route path='/books' element={<BookPage/>} />
+              <Route path='/books/:bookId' element={<BookPage/>} />
               <Route path='/addBook' element={<AddBookPage />} />
               <Route path='/editBook' element = {<EditBookPage />} />
             </Route>

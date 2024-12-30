@@ -2,10 +2,9 @@ import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import { useForm } from 'react-hook-form'
 import StarsRating from '../components/ui/StarsRating'
-import axios from "axios"
 import { toast } from "react-toastify"
 import { useState } from "react"
-import { Navigate, NavLink, useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
 
 
 
@@ -24,14 +23,19 @@ function AddBookPage() {
     const { errors, isValid } = formState
     const [rating, setRating] = useState(0);
 
-    const myDataBase = axios.create({
-        baseURL: 'http://localhost:3000'
-    })
+    // const myDataBase = axios.create({
+    //     baseURL: 'http://localhost:3000'
+    // })
 
     // tenemos que coger el user Id del local storage:
     async function addBook(book: FormValues & {user_id : string}){
         try{
-            const res = await myDataBase.post('/addBook', book)
+            const res = await fetch(`http://localhost:3000/addBook`,
+                {   method: 'POST',
+                    headers: {'Content-Type' : 'application/json'},
+                    body: JSON.stringify(book)
+                }
+            )
             console.log(res)
             toast.success('Book added successfully to your bookshelf!')
             reset() // resetea el formulario
