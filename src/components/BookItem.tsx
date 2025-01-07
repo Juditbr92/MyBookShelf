@@ -15,8 +15,8 @@ function BookItem (props: BookItemProps) {
     const { book, getBooksUser } = props; 
     const navigate = useNavigate()
 
-    function handleEditBook() {
-        navigate("/editBook")
+    function editBook() {
+        navigate(`/editBook`, { state: {book}}) // Así pasamos el libro como estado
     }
 
     async function deleteBook() {
@@ -57,7 +57,7 @@ function BookItem (props: BookItemProps) {
                 </div> 
                 <div className="flex items-center">
                     <span className="m-1"><StarsRating onRatingChange={() => {}} rating={book.rating}></StarsRating></span>
-                    <button className="ml-auto text-xl mr-2"  onClick={handleEditBook}> <AiTwotoneEdit /></button>
+                    <button className="ml-auto text-xl mr-2 hover:scale-110"  onClick={editBook}> <AiTwotoneEdit /></button>
                     <button className="text-xl"><AiOutlineDelete className="text-red-700 cursor-pointer hover:scale-110"  onClick={deleteBook}/></button>
                 </div>
                 <button className="p-2 rounded hover:border-2 hover:bg-custom-bg hover:text-white ">Mis notas</button>

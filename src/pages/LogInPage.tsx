@@ -39,15 +39,28 @@ function LogInPage() {
             toast.success('You have successfully logged in 😉!')
             navigate('/')
         }
-        catch(error){
-            if(isAxiosError(error)){
-                console.log(error.response?.data)
-                toast.error("You cannot log in. Please try again!")
+        
+        catch (error) {
+            if (isAxiosError(error)) {
+                const status = error.response?.status;
+                const message = error.response?.data.message;
+    
+                // Manejo de casos específicos basados en el código de estado
+                if (status === 400) {
+                    toast.error("Email and password are required!");
+                } else if (status === 401) {
+                    toast.error("Invalid credentials. Please try again!");
+                } else if (status === 500) {
+                    toast.error("An unexpected error occurred. Please try again later!");
+                } else {
+                    toast.error(message || "An unknown error occurred!");
+                }
             } else {
-                console.log(error)
+                console.error(error);
+                toast.error('An unexpected error occurred!');
             }
         }
-    }
+    };
 
     
     return (
