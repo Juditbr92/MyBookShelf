@@ -2,38 +2,44 @@ import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import StarsRating from '../components/ui/StarsRating'
 import { useForm } from 'react-hook-form'
-import {  useState } from 'react'
+import {  useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 
 type FormValues = {
-    title: string,
-    author: string, 
-    type: string, 
+    title?: string,
+    author?: string, 
+    type?: string, 
     photo?: string, 
     notes?: string
 }
 
 type EditBookDataType = {
     book_id: number, 
-    title: string,
-    author: string, 
-    type: string, 
+    title?: string,
+    author?: string, 
+    type?: string, 
     photo?: string, 
     notes?: string, 
 }
 
 function EditBookPage() {
-    
+
     {/*aquí me traigo la info del book. El state me saca todo el book y en consola me sale como book y dentro de ahí el libro. Por eso para llamar 
     a la foto para la imagen tengo que llamar a state.book.photo */}
-    const { state } = useLocation() 
-
+    const { state } = useLocation()   
+    
     const {register, handleSubmit, formState: { errors, isValid }} = useForm<FormValues>(
         {   
             mode: 'onChange',
-            defaultValues: state
+            defaultValues: {
+                title: state?.book?.title || "",
+                author: state?.book?.author || "",
+                type: state?.book?.type || "",
+                photo: state?.book?.photo || "",
+                notes: state?.book?.notes || "",
+            },
         }
     )
 
@@ -103,11 +109,8 @@ function EditBookPage() {
                             label="Title:" 
                             placeholder= "Title" 
                             type="string" 
-                            {...register('title', {
-                                required: "* Title is required"
-                            })}
+                            {...register('title')}
                             />
-                            {errors.title && <span className="text-red-500 text-xs" >{errors.title.message}</span>}
                         </div>
 
                         <div>
@@ -116,11 +119,8 @@ function EditBookPage() {
                             label="Author:" 
                             type="string" 
                             placeholder= "Author"
-                            {...register('author', {
-                                required: "* Author is required"
-                            })}
+                            {...register('author')}
                             />
-                            {errors.author && <span className="text-red-500 text-xs" >{errors.author.message}</span>}
                         </div>
 
                         <div>
@@ -129,11 +129,8 @@ function EditBookPage() {
                             label="Type:" 
                             type="string" 
                             placeholder= "Type"
-                            {...register('type', {
-                                required: "* This field is required"
-                            })}
+                            {...register('type')}
                             />
-                            {errors.type && <span className="text-red-500 text-xs" >{errors.type.message}</span>}
                         </div>
 
                         <Input 
@@ -153,8 +150,7 @@ function EditBookPage() {
                         placeholder= "What did you think?"
                         {...register('notes')}
                         />
-                        <Button disabled= {!isValid}
-                    className="disabled: cursor-not-allowed disabled: opacity-60">Edit book</Button>
+                        <Button >Edit book</Button>
                     </form>
                 </div>
 
