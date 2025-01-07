@@ -12,7 +12,8 @@ type FormValues = {
     author?: string, 
     type?: string, 
     photo?: string, 
-    notes?: string
+    notes?: string,
+    rating: number
 }
 
 type EditBookDataType = {
@@ -22,6 +23,7 @@ type EditBookDataType = {
     type?: string, 
     photo?: string, 
     notes?: string, 
+    rating: number
 }
 
 function EditBookPage() {
@@ -30,7 +32,7 @@ function EditBookPage() {
     a la foto para la imagen tengo que llamar a state.book.photo */}
     const { state } = useLocation()   
     
-    const {register, handleSubmit, formState: { errors, isValid }} = useForm<FormValues>(
+    const {register, handleSubmit } = useForm<FormValues>(
         {   
             mode: 'onChange',
             defaultValues: {
@@ -39,6 +41,7 @@ function EditBookPage() {
                 type: state?.book?.type || "",
                 photo: state?.book?.photo || "",
                 notes: state?.book?.notes || "",
+                rating: state?.book?.rating || 0,
             },
         }
     )
@@ -52,7 +55,7 @@ function EditBookPage() {
     async function onSubmit (data: FormValues) {
 
         // editBookData me trae todo lo que tiene la data que es del form, más el book_id que lo cojo del state. 
-        const editBookData: EditBookDataType = {...data, book_id:state.book.book_id}
+        const editBookData: EditBookDataType = {...data, book_id:state.book.book_id, rating}
 
         try{
             const resp = await fetch(`http://localhost:3000/books`, {
@@ -141,7 +144,7 @@ function EditBookPage() {
                         {...register('photo')}
                         />
 
-<label className='flex items-center gap-12 from-neutral-500'> Rating: <StarsRating onRatingChange={setRating}/></label> 
+                        <label className='flex items-center gap-12 from-neutral-500'> Rating: <StarsRating onRatingChange={setRating}/></label> 
                         
                         <Input 
                         className="h-8 lg:h-10 bg-slate-200 border-2 border-custom-bg rounded p-2 2xl:mb-3"
