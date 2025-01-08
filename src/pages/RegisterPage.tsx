@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import {User} from '../config/types'
@@ -47,7 +47,7 @@ function RegisterPage() {
         baseURL: 'http://localhost:3000'
     })
 
-    const { logIn } = useContext(UserContext) // Esto es del userProvider
+    const { user, logIn } = useContext(UserContext) // Esto es del userProvider
     const navigate = useNavigate()
 
     async function addUser(registerValues: User) {
@@ -56,6 +56,7 @@ function RegisterPage() {
 
             // Guardar token en el localStorage:
             localStorage.setItem('token', response.data.token)
+            localStorage.setItem('user_id', JSON.stringify(response.data.user?.user_id));
 
             console.log(response)
             // Actualizamos el userContext con la nueva información
@@ -81,6 +82,7 @@ function RegisterPage() {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log(registerValues)
+        console.log(user?.user_id)
         addUser(registerValues).catch((error)=> {
             console.log(error)
         }) 

@@ -4,9 +4,7 @@ import Input from '../components/ui/Input'
 import { useForm } from 'react-hook-form'
 import { UserContext } from '../context/UserProvider'
 import { toast } from 'react-toastify'
-import { UpdateUser } from '../config/types'
-
-
+import { User } from '../config/types'
 
 type FormValues = {
     username: string,
@@ -22,7 +20,7 @@ function ProfilePage() {
     const { errors } = formState
     
     async function onSubmit (data: FormValues) {
-        const updatedUser: UpdateUser = {...data}
+        const updatedUser: User = {...data}
         if(user) updatedUser.user_id = user.user_id
 
         try{

@@ -1,27 +1,34 @@
 import { createContext, ReactNode, useState } from 'react'
-import { UpdateUser, User } from '../config/types';
+import { User } from '../config/types';
 
 
 type UserContextType = {
         user: User | null,
-        logIn?: (user: User | UpdateUser) => void, 
-        logOut?: () => void
+        logIn: (user: User) => void, 
+        logOut: () => void
 }
 
 type UserProviderProps = {
     children: ReactNode
 }
 
-const UserContext = createContext<UserContextType>({user: null});
+const UserContext = createContext<UserContextType>({user: null, logIn: () => {}, logOut: () => {}});
 
 
 
 function UserProvider(props: UserProviderProps) {
     const { children } = props
+    
+    function logIn(user: User){
+        setUser(user)
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('user_id', JSON.stringify(user.user_id));
+    }
 
     const [user, setUser] = useState<User | null>(() => {
 
         // Aqui hay que meter el user con el que hacemos LogIn
+
         //Aquí metemos todo el código de lo que queremos que salga según iniciamos la app
         const userLocalStorage = localStorage.getItem('user')
 
@@ -29,11 +36,7 @@ function UserProvider(props: UserProviderProps) {
         return userLocalStorage ? JSON.parse(userLocalStorage) : null
     })
 
-    function logIn (user:User) {
-        setUser(user)
-        localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('user_id', JSON.stringify(user.user_id));
-    }
+
 
     function logOut (){
         setUser(null)

@@ -11,10 +11,10 @@ type Book = {
 type User = {
   user_id?: number;
   username: string;
-  email: string;
+  email?: string;
   photo: string;
   password: string;
-  repeatPassword: string;
+  repeatPassword?: string;
 };
 
 type UpdateUser = {

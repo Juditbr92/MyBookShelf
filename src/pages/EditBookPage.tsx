@@ -47,7 +47,7 @@ function EditBookPage() {
     )
 
     const [rating, setRating] = useState(0);
-    // const [book, setBook] = useState<Book | null>(null);
+
 
     const navigate = useNavigate()
 
