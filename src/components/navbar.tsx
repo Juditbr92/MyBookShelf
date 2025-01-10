@@ -23,7 +23,7 @@ function Navbar (props: MenuProps) {
 
     return (
         <nav className = {classes}>
-            <NavLink className="[&.active]:underline hover:text-black" to="/">Home</NavLink>
+            {!user && <NavLink className="[&.active]:underline hover:text-black" to="/">Home</NavLink>}
             {user && <NavLink className="[&.active]:underline hover:text-black" to="/books">My books</NavLink>}
             {!user && <NavLink className="[&.active]:underline hover:text-black active:text-black" to="/register">Register</NavLink>}
             {!user && <NavLink className=" hover:text-black border-2 p-1 rounded hover:border-black" to="/login">Log in</NavLink>}

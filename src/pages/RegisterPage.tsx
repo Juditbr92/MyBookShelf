@@ -64,7 +64,7 @@ function RegisterPage() {
                 logIn(response.data.user)
             }
             toast.success("You have registered successfully! Now, enjoy MyBookShelf!🙂")
-            // redirigir a home
+            // redirigir a myBooks
             navigate('/')
         } catch(error){
             if(isAxiosError(error)){
