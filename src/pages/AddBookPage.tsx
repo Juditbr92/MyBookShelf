@@ -69,7 +69,7 @@ function AddBookPage() {
             <div>
                 <div className="flex flex-col gap-2 mt-auto items-center 2xl:mt-10">
                     <h1 className='text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-5xl text-emerald-700 font-bold font-sans mt-2 lg:mt-4'>Add a new book!</h1>
-                    <span className='text-sm sm:text-base md:text-base lg:text-lg xl:text-lg text-gray-700 font-extralight font'>Keep track of all your readings</span>
+                    <span className='text-sm sm:text-base md:text-base lg:text-lg xl:text-lg text-gray-700 font-extralight font '>Keep track of all your readings</span>
                 </div>
             </div>
 
