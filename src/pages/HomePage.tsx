@@ -39,7 +39,7 @@ function HomePage() {
 
                 </div>
 
-                <div className="border-4 border-emerald-600 bg-emerald-600 text-white rounded p-4 justify-center align-middle mt-8 hover:bg-custom-bg hover:text-black md:mt-4 2xl:mt-8">
+                <div className="border-4 border-emerald-600 hover:bg-emerald-600 hover:text-white rounded p-4 justify-center align-middle mt-8 bg-custom-bg text-black md:mt-4 2xl:mt-8">
                     <NavLink to="/register">Sign up now!</NavLink>
                 </div>
             </div>

@@ -99,7 +99,7 @@ function EditBookPage() {
                             <div className="flex items-center">
                                 <span className="m-1"><StarsRating onRatingChange={() => {}} rating={state.book.rating}></StarsRating></span>
                             </div>
-                            <button className="p-2 rounded hover:border-2 hover:bg-custom-bg hover:text-white ">Mis notas</button>
+                            <button className="p-2 rounded hover:border-2 hover:bg-custom-bg hover:text-white ">My thoughts</button>
                         </div>
                     </article>
                 </div>

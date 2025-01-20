@@ -6,6 +6,7 @@ type Book = {
   photo: string;
   type: string;
   rating: number;
+  notes?: string;
 };
 
 type User = {

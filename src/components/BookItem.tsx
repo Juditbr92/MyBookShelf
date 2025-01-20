@@ -4,6 +4,7 @@ import { Book } from "../config/types"
 import StarsRating from '../components/ui/StarsRating'
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Modal from "./Modal";
 
 type BookItemProps = {
     book: Book;
@@ -49,7 +50,7 @@ function BookItem (props: BookItemProps) {
             <div className="w-25 md:w-45 h-[200px] md:h-[350px] aspect-[2/3] overflow-hidden"> 
                 <img className= "mb-3 2-full h-full object-cover flex m-auto my-2 p-3 rounded-xl" src= {book?.photo || '/img/portadaVacia.png'} alt= {`Portada del libro ${book.title}`}/>
             </div>
-            <div className="flex flex-col gap-2 p-2 flex-grow">
+            <div className="flex flex-col gap-2 p-2 flex-grow mx-2">
                 <span className="font-serif text-black text-xl truncate">{book.title}</span>
                 <div className="flex justify-between items-center gap-2">
                     <span className="font- text-gray-600 truncate">{book.author}</span>
@@ -57,10 +58,13 @@ function BookItem (props: BookItemProps) {
                 </div> 
                 <div className="flex items-center">
                     <span className="m-1"><StarsRating onRatingChange={() => {}} rating={book.rating}></StarsRating></span>
-                    <button className="ml-auto text-xl mr-2 hover:scale-110"  onClick={editBook}> <AiTwotoneEdit /></button>
+                    <button className="ml-auto text-xl hover:scale-110"  onClick={editBook}> <AiTwotoneEdit /></button>
                     <button className="text-xl"><AiOutlineDelete className="text-red-700 cursor-pointer hover:scale-110"  onClick={deleteBook}/></button>
+                    
                 </div>
-                <button className="p-2 rounded hover:border-2 hover:bg-custom-bg hover:text-white ">Mis notas</button>
+                <div className="items-center justify-center m-auto">
+                    <Modal book={book}></Modal>
+                </div>
             </div>
         </article>
     )
