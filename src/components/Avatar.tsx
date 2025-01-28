@@ -2,6 +2,7 @@ import  { useContext, useState } from 'react'
 import { UserContext } from '../context/UserProvider'
 import { IoIosArrowDropdown } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion'
 
 
 function Avatar() {
@@ -29,21 +30,27 @@ function Avatar() {
                 
             </button>
         
-        {isOpen && (
-            <div>
-                <div className="absolute right-0 z-10 mt-6 mr-4 w-32 origin-top-right rounded-md bg-white hover:bg-emerald-100 shadow-lg ring-1 ring-black/5 focus:outline-none" >
-                    <div className="py-1" role="none">
-                        <form method="POST" action="#" role="none">
-                            <NavLink className="block w-full px-4 py-2 text-left text-sm text-black hover:text-emerald-800" to="/profile">Profile</NavLink>
-                            <button onClick={() => {
-                                logOut();
-                                toggleDropdown();
-                                }} type="button" className="block w-full px-4 py-2 text-left text-sm text-black hover:text-red-500">Sign out</button>
-                        </form>
+        <AnimatePresence>
+        {isOpen && (    
+                <motion.div 
+                initial = {{opacity: 0}}
+                animate = {{opacity: 1}}
+                exit= {{opacity: 0}}
+                >
+                    <div className="absolute right-0 z-10 mt-6 mr-4 w-32 origin-top-right rounded-md bg-emerald-100 shadow-lg ring-1 ring-black/5 focus:outline-none" >
+                        <div className="py-1" role="none">
+                            <form method="POST" action="#" role="none">
+                                <NavLink className="block w-full px-4 py-2 text-left text-sm text-black hover:text-emerald-800" to="/profile">Profile</NavLink>
+                                <button onClick={() => {
+                                    logOut();
+                                    toggleDropdown();
+                                    }} type="button" className="block w-full px-4 py-2 text-left text-sm text-black hover:text-red-500">Sign out</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </div>
-        )}   
+                </motion.div> 
+        )}
+        </AnimatePresence>   
         </div>
     )
 }

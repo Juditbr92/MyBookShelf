@@ -2,6 +2,7 @@ import {NavLink} from 'react-router-dom'
 import Avatar from './Avatar.tsx';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider.tsx';
+import {motion} from 'framer-motion'
 
 
 type MenuProps = {
@@ -22,15 +23,17 @@ function Navbar (props: MenuProps) {
 
 
     return (
-        <nav className = {classes}>
+        <motion.nav  className = {classes}
+        >
             {!user && <NavLink className="[&.active]:underline hover:text-black" to="/">Home</NavLink>}
+            {user && <NavLink className=" [&.active]:underline hover:text-black" to="/discover">Discover</NavLink>}
             {user && <NavLink className="[&.active]:underline hover:text-black" to="/books">My books</NavLink>}
             {!user && <NavLink className="[&.active]:underline hover:text-black active:text-black" to="/register">Register</NavLink>}
             {!user && <NavLink className=" hover:text-black border-2 p-1 rounded hover:border-black" to="/login">Log in</NavLink>}
             {user && <NavLink className=" [&.active]:underline hover:text-black" to="/addBook">Add book</NavLink>}
             {user && <Avatar  user={user} />}
-        </nav> 
-    )
+        </ motion.nav>
+    ) 
 }
 
 export default Navbar

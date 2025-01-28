@@ -6,6 +6,7 @@ import  {Routes, Route}  from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AddBookPage from './pages/AddBookPage';
 import LogInPage from './pages/LogInPage';
+import ApiPage from './pages/ApiPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import PrivateRoutes from './components/PrivateRoutes';
@@ -15,6 +16,7 @@ import Error404Page from './pages/Error404Page';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import UserProvider from './context/UserProvider';
+
 
 
 function App() {
@@ -30,13 +32,6 @@ function App() {
           <Routes>
             <Route path='/' element={<HomePage />}/>
 
-  {/* Esto tiene que borrarse y quedar lo de las Private Routes, pero como no hay nadie logueado no funciona */}
-              {/* <Route path='/profile' element={<ProfilePage />} />
-              <Route path='/books' element={<BookPage/>} />
-              <Route path='/addBook' element={<AddBookPage />} />
-              <Route path='/editBook' element = {<EditBookPage />} /> */}
-
-
             <Route element={<PublicRoutes />}>
               <Route path='/login' element= {<LogInPage/>}/>
               <Route path='/register' element={<RegisterPage />} />
@@ -45,9 +40,9 @@ function App() {
             <Route element={<PrivateRoutes />}>
               <Route path='/profile' element={<ProfilePage />} />
               <Route path='/books' element={<BookPage/>} />
-              {/* <Route path='/books/:book_id' element={<EditBookPage/>} /> */}
               <Route path='/addBook' element={<AddBookPage />} />
               <Route path='/editBook' element = {<EditBookPage />} />
+              <Route path='/discover' element={<ApiPage />} />
             </Route>
             
             {/* Aqui la ruta para el error 404 */}
