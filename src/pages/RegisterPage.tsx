@@ -65,7 +65,7 @@ function RegisterPage() {
             }
             toast.success("You have registered successfully! Now, enjoy MyBookShelf!🙂")
             // redirigir a myBooks
-            navigate('/')
+            navigate('/books')
         } catch(error){
             if(isAxiosError(error)){
                 console.log(error.response?.data)

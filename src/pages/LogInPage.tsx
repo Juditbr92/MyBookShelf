@@ -37,7 +37,7 @@ function LogInPage() {
             }
 
             toast.success('You have successfully logged in 😉!')
-            navigate('/')
+            navigate('/books')
         }
         
         catch (error) {
