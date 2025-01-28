@@ -81,6 +81,26 @@ function RegisterPage() {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
+        // PRIMERO validamos los campos para ver si hay errores:
+        setTouchedInputs({
+            username: true,
+            email: true,
+            photo: true,
+            password: true,
+            repeatPassword: true,
+        });
+
+        // SEGUNDO verificamos si hay errores en algun campo:
+        // la funcion .some(error) revisa si al menos un valor en el array cumple la condicion, la primera que no este vacio pero exista error, y la segunda que este el campo vacio
+        const hasErrors = Object.values(errors).some((error) => error !== "") || Object.values(registerValues).some((value) => value === "");
+        
+        if(hasErrors){
+            toast.error("This form cannot be submitted. Please correct errors")
+            return
+        }
+
+        // Si no hay errores, registra al usuario:
         console.log(registerValues)
         console.log(user?.user_id)
         addUser(registerValues).catch((error)=> {
