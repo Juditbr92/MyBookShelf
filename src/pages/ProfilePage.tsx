@@ -37,7 +37,9 @@ function ProfilePage() {
                 if(updatedUser !== undefined){
                     logIn(updatedUser)
                 }
-                reset() // resetea el formulario, hay que añadirlo en el useForm
+                reset();} // resetea el formulario, hay que añadirlo en el useForm
+            else if (json.code === 409) { // Manejar error de username existente
+                    toast.error("This username is already taken. Please choose another one.");
             }else {
                 toast.error(json.message || 'An error occurred');
             }

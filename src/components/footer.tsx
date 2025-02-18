@@ -6,9 +6,9 @@ function Footer () {
     
     return (
         <footer className="bg-custom-bg h-12 p-4 flex justify-center gap-4 mt-auto">
-            <a href=""><BsTwitterX size={20}/></a>
-            <a href="https://fisika.es/contacto/"><FaInstagram size={20}/></a>
-            <a href=""><FaFacebook size={20} /></a>
+            <a href="https://x.com/?lang=es&mx=2"><BsTwitterX size={20}/></a>
+            <a href="https://www.instagram.com"><FaInstagram size={20}/></a>
+            <a href="https://www.facebook.com"><FaFacebook size={20} /></a>
         </footer>
     )
 }
